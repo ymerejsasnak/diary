@@ -2,6 +2,11 @@
 
   session_start();
 
+  if (isset($_GET['logout']) && $_GET['logout'] === 1 AND isset($_SESSION['id'])) {
+    $message = "You have been logged out.";
+    session_destroy();
+  }
+
   include("connection.php");
   
   //sign up
@@ -37,7 +42,7 @@
     }
 
     if ($error) {
-      echo "Please address the following errors: ".$error;
+      $error =  "Please address the following errors: ".$error;
     }
     //if no errors, sign up user!
     else {
@@ -52,7 +57,7 @@
       $results = mysqli_num_rows($result);
 
       if ($results) {
-        echo "That email is already in use.  Would you like to log in?";
+        $error = "That email is already in use.  Please log in above";
       }
       else {                                                                        //hash, salt, etc. the pw
         $query = "INSERT INTO `users` (`email`, `password`) VALUES('".$safeEmail."', '".md5(md5($safeEmail).$_POST['password'])."')";
@@ -64,6 +69,7 @@
         $_SESSION['id'] = mysqli_insert_id($link); //most recent id in DB
 
         //then redirect to logged in page
+        header("Location:diary.php");
       }
     }
   }
@@ -82,9 +88,10 @@
       $_SESSION['id'] = $row['id'];
 
       //redirect to logged in page
+      header("Location:diary.php");
     }
     else {
-      echo "Incorrect email or password.";
+      $error = "Incorrect email or password.";
     }
 
   }

@@ -16,3 +16,23 @@ body {
   border-radius: 5px;
 }
  
+
+@media(max-width: 700px) {
+  textarea {
+    position: relative;
+    top: 75px;
+    resize: none;
+    min-height: 375px;
+    max-height: 375px;
+  }
+}
+
+@media(min-width: 700px) {
+  textarea {
+    position: relative;
+    top: 100px;
+    resize: none;
+    min-height: 600px;
+    max-height: 600px;
+  }
+}

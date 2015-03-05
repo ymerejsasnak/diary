@@ -75,6 +75,18 @@
 
         <p class="lead text-center">Your own private diary...online!</p>
 
+        <?php
+
+          if (isset($error) && $error != "") {
+            echo "<div class='alert alert-danger'>" . $error . "</div>";
+          }
+
+          if (isset($message)) {
+            echo "<div class='alert alert-info'>" . $message . "</div>"; 
+          }
+
+        ?>
+
         <!-- sign up form -->
         <form method="post">
 
